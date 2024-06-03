@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dacy86li6w6sr"]
+
+[node name="Mask" type="CanvasModulate"]
