@@ -1,0 +1,14 @@
+git add . (pega todos os arquivos alterados da pasta raiz)
+
+git status (verifica o status para fazer commit)
+
+git commit -m "descrição do commit" (faz a descrição do commit que irá montar dos arquivos alterados)
+
+git commit push origin master (faz o commit no brench master)
+
+//////////////////////////////////////////
+
+comandos do terminal git bash
+
+Shift+Ins * cola
+Ctrl+Ins * copia 
