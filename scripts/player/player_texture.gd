@@ -2,7 +2,7 @@ extends Sprite2D
 class_name PlayerTexture
 
 @onready var animation : AnimationPlayer = get_node("../Animation")
-@onready var player : CharacterBody2D = get_node(Player)
+@onready var player : CharacterBody2D = get_node("../")
 
 
 func animate(direction: Vector2) -> void:
@@ -12,6 +12,7 @@ func animate(direction: Vector2) -> void:
 		vertical_behavior(direction)
 	elif player.landing == true:
 		animation.play("landing")
+		player.set_physics_process(false)
 	else:
 		horizontal_behavior(direction)
 	
@@ -36,3 +37,11 @@ func horizontal_behavior(direction: Vector2) -> void:
 	else:
 		#play na animação de idle
 		animation.play("idle")
+
+
+func on_animation_finished(anim_name: String):
+	match anim_name:
+		"landing":
+			player.landing = false
+			player.set_physics_process(true)
+	
