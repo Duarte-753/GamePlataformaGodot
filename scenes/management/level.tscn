@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://drjokrufu4h5h"]
+[gd_scene load_steps=7 format=3 uid="uid://drjokrufu4h5h"]
 
 [ext_resource type="TileSet" uid="uid://dhvhi5kheqchr" path="res://resources/floor.tres" id="1_ytc1n"]
 [ext_resource type="TileSet" uid="uid://cqednn0wrq4do" path="res://resources/normal_decoretion_tile.tres" id="2_rsh0b"]
 [ext_resource type="TileSet" uid="uid://bseiqw7ld1a72" path="res://resources/small_decoretion_tile.tres" id="3_uagjh"]
 [ext_resource type="PackedScene" uid="uid://djhpupdph25ql" path="res://scenes/env/background.tscn" id="4_3uln6"]
 [ext_resource type="PackedScene" uid="uid://dacy86li6w6sr" path="res://scenes/env/mask.tscn" id="5_1tspa"]
+[ext_resource type="PackedScene" uid="uid://b0rihdyvj0tcg" path="res://scenes/player/player.tscn" id="6_bl76f"]
 
 [node name="Level" type="Node2D"]
 
@@ -31,3 +32,6 @@ layer_0/tile_data = PackedInt32Array(458755, 1, 0, 458753, 2, 0, 458760, 2, 0, 4
 
 [node name="Mask" parent="." instance=ExtResource("5_1tspa")]
 color = Color(0.458824, 0.529412, 1, 1)
+
+[node name="Player" parent="." instance=ExtResource("6_bl76f")]
+position = Vector2(160, 70)
