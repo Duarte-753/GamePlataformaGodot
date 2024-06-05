@@ -1,8 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://b0rihdyvj0tcg"]
+[gd_scene load_steps=23 format=3 uid="uid://b0rihdyvj0tcg"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_iqvyf"]
 [ext_resource type="Texture2D" uid="uid://c2l812ln4o2ji" path="res://assets/assets/player/char_blue.png" id="1_kp2q5"]
 [ext_resource type="Script" path="res://scripts/player/player_texture.gd" id="3_ws03s"]
+[ext_resource type="Texture2D" uid="uid://cnussldr2sjb1" path="res://assets/assets/effect/light.png" id="4_p7p7y"]
+[ext_resource type="Script" path="res://scripts/player/player_stats.gd" id="5_5fbcw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l0shl"]
 size = Vector2(14, 31)
@@ -347,10 +349,74 @@ _data = {
 "wall_slide": SubResource("Animation_jb8rk")
 }
 
+[sub_resource type="Animation" id="Animation_3i2jv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
+}
+
+[sub_resource type="Animation" id="Animation_u4da4"]
+resource_name = "light_animation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, 0.25]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.8, 0.6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qje06"]
+_data = {
+"RESET": SubResource("Animation_3i2jv"),
+"light_animation": SubResource("Animation_u4da4")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_iqvyf")
 speed = 75
 jump_speed = -175
+wall_jump_speed = -150
+wall_gravity = 115
+wall_impulse_speed = 500
 player_gravity = 350
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -382,6 +448,21 @@ visible = false
 disabled = true
 
 [node name="WallRay" type="RayCast2D" parent="."]
-target_position = Vector2(11, 0)
+target_position = Vector2(5.5, 0)
+
+[node name="Light" type="PointLight2D" parent="."]
+color = Color(1, 1, 2, 1)
+energy = 0.8
+texture = ExtResource("4_p7p7y")
+texture_scale = 0.3
+
+[node name="Animation" type="AnimationPlayer" parent="Light"]
+libraries = {
+"": SubResource("AnimationLibrary_qje06")
+}
+autoplay = "light_animation"
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("5_5fbcw")
 
 [connection signal="animation_finished" from="Animation" to="Texture" method="on_animation_finished"]
