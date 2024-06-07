@@ -3,6 +3,7 @@ class_name Player
 
 @onready var player_sprite: Sprite2D = get_node("Texture")#acesso as minhas texturas filho de player
 @onready var wall_ray: RayCast2D = get_node("WallRay")#acesso ao filho Wallray sobre slide da parede
+@onready var stats: Node = get_node("Stats")#acesso ao filho Stats
 @export var speed: int #velocidade
 @export var jump_speed: int #velocidade de pulo
 @export var wall_jump_speed: int#velocidade de pilo parede
@@ -17,6 +18,8 @@ var on_wall: bool = false# ação para saber se está na parede
 var attacking: bool = false #ação de atacar
 var defending: bool = false #ação de defender
 var crouching: bool = false #ação de agachar
+var on_hit: bool = false #ação de tomar hit
+var dead: bool = false #ação de morte
 
 var can_track_input: bool = true # caso o personagem 
 #estiver defendendo, etc. não vai pode fazer ações
@@ -67,18 +70,22 @@ func crouch() -> void:
 	if Input.is_action_pressed("crouch") and is_on_floor() and not defending:
 		crouching = true
 		can_track_input = false
+		stats.shielding = false
 	elif  not defending:
 		crouching = false
 		can_track_input = true
+		stats.shielding = false
 		player_sprite.crouching_off = true
 		
 func defense() -> void:
 	if Input.is_action_pressed("defense") and is_on_floor() and not crouching:
 		defending = true
 		can_track_input = false
+		stats.shielding = true
 	elif  not crouching:
 		defending = false
 		can_track_input = true
+		stats.shielding = false
 		player_sprite.shield_off = true
 		
 	

@@ -1,6 +1,10 @@
 extends Node
 class_name PlayerStats
 
+@onready var player : CharacterBody2D = get_node("../")
+@onready var collision_area : CharacterBody2D = get_node("../CollisionArea")
+@onready var invencibility_timer: Timer = get_node("InvencibilityTimer")
+
 var shielding: bool = false
 
 var base_health: int = 15
@@ -66,9 +70,10 @@ func update_health(type: String, value: int)->void:
 		"Decrease":
 			verify_shield(value)
 			if current_health <= 0:
-				pass #Chamar a animação de morte
+				player.dead = true
 			else:
-				pass #Chamar a animação de tomar dano
+				player.on_hit = true
+				player.attacking = false
 			
 func verify_shield(value: int)->void:
 	if shielding:
@@ -79,3 +84,24 @@ func verify_shield(value: int)->void:
 	else:
 		current_health -= value
 		
+		
+func update_mana(type: String, value: int)->void:
+	match type:
+		"Increase":
+			current_mana += value
+			if current_mana >= max_mana:
+				current_mana = max_mana
+		"Decrease":
+			current_mana -= value
+
+
+func on_collision_area_entered(area):
+	if area.name == "EnemyAttackArea":
+		update_health("Decrease", area.damage)
+		collision_area.set_deferred("monitoring", false)
+		invencibility_timer.start(area.invencibility_timer)
+		
+
+
+func on_invencibility_timer_timeout() -> void:
+	collision_area.set_deferred("monitoring", true)

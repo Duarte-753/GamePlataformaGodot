@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b0rihdyvj0tcg"]
+[gd_scene load_steps=25 format=3 uid="uid://b0rihdyvj0tcg"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_iqvyf"]
 [ext_resource type="Texture2D" uid="uid://c2l812ln4o2ji" path="res://assets/assets/player/char_blue.png" id="1_kp2q5"]
@@ -334,13 +334,47 @@ tracks/0/keys = {
 "values": [85, 86]
 }
 
+[sub_resource type="Animation" id="Animation_2o7oi"]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 42, 43]
+}
+
+[sub_resource type="Animation" id="Animation_qcpuq"]
+resource_name = "dead"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xjc4b"]
 _data = {
 "RESET": SubResource("Animation_3jtbi"),
 "attack_left": SubResource("Animation_5ip3w"),
 "attack_right": SubResource("Animation_03cpt"),
 "crouch": SubResource("Animation_vey1b"),
+"dead": SubResource("Animation_qcpuq"),
 "fall": SubResource("Animation_fvf0f"),
+"hit": SubResource("Animation_2o7oi"),
 "idle": SubResource("Animation_bjtvo"),
 "jump": SubResource("Animation_tuoje"),
 "landing": SubResource("Animation_cebwk"),
@@ -448,6 +482,7 @@ visible = false
 disabled = true
 
 [node name="WallRay" type="RayCast2D" parent="."]
+visible = false
 target_position = Vector2(5.5, 0)
 
 [node name="Light" type="PointLight2D" parent="."]
@@ -465,4 +500,16 @@ autoplay = "light_animation"
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("5_5fbcw")
 
+[node name="InvencibilityTimer" type="Timer" parent="Stats"]
+one_shot = true
+
+[node name="CollisionArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="CollisionArea"]
+visible = false
+position = Vector2(-2, 12.5)
+shape = SubResource("RectangleShape2D_l0shl")
+
 [connection signal="animation_finished" from="Animation" to="Texture" method="on_animation_finished"]
+[connection signal="timeout" from="Stats/InvencibilityTimer" to="Stats" method="on_invencibility_timer_timeout"]
+[connection signal="area_entered" from="CollisionArea" to="Stats" method="on_collision_area_entered"]
