@@ -13,7 +13,8 @@ layer_speed = Array[int]([20, 15, 10, 5])
 
 [node name="Layer4" type="ParallaxLayer" parent="."]
 texture_filter = 3
-motion_scale = Vector2(0.4, 0.4)
+texture_repeat = 2
+motion_scale = Vector2(0.4, 1)
 motion_mirroring = Vector2(320, 180)
 
 [node name="Texture" type="TextureRect" parent="Layer4"]
@@ -23,7 +24,7 @@ texture = ExtResource("4_mmtov")
 
 [node name="Layer1" type="ParallaxLayer" parent="."]
 texture_filter = 3
-motion_scale = Vector2(0.5, 0.5)
+motion_scale = Vector2(0.5, 1)
 motion_mirroring = Vector2(320, 0)
 
 [node name="Texture" type="TextureRect" parent="Layer1"]
@@ -33,7 +34,7 @@ texture = ExtResource("1_iys1y")
 
 [node name="Layer2" type="ParallaxLayer" parent="."]
 texture_filter = 3
-motion_scale = Vector2(0.6, 0.6)
+motion_scale = Vector2(0.6, 1)
 motion_mirroring = Vector2(320, 0)
 
 [node name="Texture" type="TextureRect" parent="Layer2"]
@@ -43,7 +44,7 @@ texture = ExtResource("2_evq3d")
 
 [node name="Layer3" type="ParallaxLayer" parent="."]
 texture_filter = 3
-motion_scale = Vector2(0.8, 0.8)
+motion_scale = Vector2(0.8, 1)
 motion_mirroring = Vector2(320, 0)
 
 [node name="Texture" type="TextureRect" parent="Layer3"]

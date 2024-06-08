@@ -2,7 +2,7 @@ extends Node
 class_name PlayerStats
 
 @onready var player : CharacterBody2D = get_node("../")
-@onready var collision_area : CharacterBody2D = get_node("../CollisionArea")
+@onready var collision_area : CollisionShape2D = get_node("../CollisionArea/Collision")
 @onready var invencibility_timer: Timer = get_node("InvencibilityTimer")
 
 var shielding: bool = false

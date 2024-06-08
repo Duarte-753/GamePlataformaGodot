@@ -5,7 +5,7 @@ signal game_over
 
 @onready var animation : AnimationPlayer = get_node("../Animation")
 @onready var player : CharacterBody2D = get_node("../")
-@onready var attack_collision : CollisionObject2D = get_node("../AttackArea/Collision")
+@onready var attack_collision : CollisionObject2D = get_node("../AttackArea")
 
 var suffix: String = "_right"
 var normal_attack: bool = false
