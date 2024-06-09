@@ -445,6 +445,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_iqvyf")
 speed = 75
 jump_speed = -175
@@ -476,6 +478,8 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
 [node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 
 [node name="Collision" type="CollisionShape2D" parent="AttackArea"]
 visible = false
@@ -484,6 +488,7 @@ disabled = true
 [node name="WallRay" type="RayCast2D" parent="."]
 visible = false
 target_position = Vector2(5.5, 0)
+collision_mask = 3
 
 [node name="Light" type="PointLight2D" parent="."]
 color = Color(1, 1, 2, 1)
@@ -504,6 +509,8 @@ script = ExtResource("5_5fbcw")
 one_shot = true
 
 [node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
 
 [node name="Collision" type="CollisionShape2D" parent="CollisionArea"]
 visible = false

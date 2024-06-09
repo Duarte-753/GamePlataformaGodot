@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://scripts/enemy/enemy_texture.gd" id="2_jtbwh"]
 
 [node name="EnemyTemplate" type="CharacterBody2D"]
+collision_layer = 8
 script = ExtResource("1_p1w8k")
 
 [node name="Texture" type="Sprite2D" parent="."]
@@ -13,22 +14,27 @@ script = ExtResource("2_jtbwh")
 [node name="Collision" type="CollisionShape2D" parent="."]
 
 [node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("1_n56k2")
 
 [node name="Collision" type="CollisionShape2D" parent="DetectionArea"]
 
 [node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
 
 [node name="Collision" type="CollisionShape2D" parent="CollisionArea"]
 
-[node name="AttackArea" type="Area2D" parent="."]
+[node name="EnemyAttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 
-[node name="Collision" type="CollisionShape2D" parent="AttackArea"]
+[node name="Collision" type="CollisionShape2D" parent="EnemyAttackArea"]
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 
-[node name="Floorray" type="RayCast2D" parent="."]
-position = Vector2(-35, 0)
+[node name="FloorRay" type="RayCast2D" parent="."]
 
 [connection signal="body_entered" from="DetectionArea" to="DetectionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="DetectionArea" method="_on_body_exited"]
