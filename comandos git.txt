@@ -8,6 +8,14 @@ git push origin master (faz o commit no brench master)
 
 git pull origin master (puxa as alterções do brench escolhida)
 
+git pull origin (puxa todas as alteraçoes e brench do projeto)
+
+git branch (puxa o nome de todas as brench do projeto)
+
+git checkout <nome-do-branch> (troca para a brench desejada se eu colocar -b na frente do checkout ele vai criar uma brench e selecionar ela)
+
+git merge <nome-do-branch> (preciso estar em uma brench ex: estou na master, sendo assim quero puxar as alterações de uma brench
+alterações Julio para master. ex: git merge <nome-do-branch> --> git merge julio vai juntar julio para master)
 //////////////////////////////////////////
 
 comandos do terminal git bash
