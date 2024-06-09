@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	gravity(delta)
 	move_behavior()
 	verify_position()
-	#texture.animate(velocity)
+	texture.animate(velocity)
 	move_and_slide()
 	
 func gravity(delta: float) -> void:
