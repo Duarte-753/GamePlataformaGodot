@@ -482,11 +482,9 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="Collision" type="CollisionShape2D" parent="AttackArea"]
-visible = false
 disabled = true
 
 [node name="WallRay" type="RayCast2D" parent="."]
-visible = false
 target_position = Vector2(5.5, 0)
 collision_mask = 3
 

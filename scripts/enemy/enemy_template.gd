@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name EnemyTemplate
 
 @onready var texture: Sprite2D = get_node("Texture")#acesso as minhas texturas filho de EnemyTemplate
 @onready var floor_ray: RayCast2D = get_node("FloorRay")
@@ -55,3 +56,7 @@ func verify_position() -> void:
 		elif direction < 0:
 			texture.flip_h = false
 			floor_ray.position.x = raycast_default_position
+			
+func kill_enemy() -> void:
+	animation.play("kill")
+	

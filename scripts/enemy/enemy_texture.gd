@@ -9,5 +9,5 @@ func animate(_velocity) -> void:
 	pass
 
 
-func _on_animation_finished(_anim_name: String) -> void:
+func on_animation_finished(_anim_name: String) -> void:
 	pass # Replace with function body.
