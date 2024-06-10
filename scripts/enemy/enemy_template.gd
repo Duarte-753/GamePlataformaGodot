@@ -4,10 +4,14 @@ class_name EnemyTemplate
 @onready var texture: Sprite2D = get_node("Texture")#acesso as minhas texturas filho de EnemyTemplate
 @onready var floor_ray: RayCast2D = get_node("FloorRay")
 @onready var animation: AnimationPlayer = get_node("Animation")
+@onready var enemy : CharacterBody2D = get_node(".")
 
 var can_die: bool = false #pode atacar 
 var can_hit: bool = false #pode ter hit
 var can_attack: bool = false #pode atacar
+
+@export var health: int
+
 
 var player_ref: Player = null
 
@@ -60,3 +64,9 @@ func verify_position() -> void:
 func kill_enemy() -> void:
 	animation.play("kill")
 	
+func update_health(demage: int) -> void:
+	health -= demage
+	if health <= 0:
+		enemy.can_die = true
+		return
+	enemy.can_hit = true
