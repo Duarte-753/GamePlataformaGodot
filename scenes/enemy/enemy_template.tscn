@@ -8,7 +8,7 @@
 [node name="EnemyTemplate" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_p1w8k")
-health = 20
+health = 25
 
 [node name="Texture" type="Sprite2D" parent="."]
 script = ExtResource("2_jtbwh")

@@ -113,4 +113,4 @@ func next_to_wall() -> bool:
 	
 
 func _on_attack_area_body_entered(body):
-	body.update_health(randi_range(1,1))
+	body.update_health(randi_range(1,5))

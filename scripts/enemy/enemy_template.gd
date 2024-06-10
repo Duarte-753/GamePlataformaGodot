@@ -10,7 +10,7 @@ var can_die: bool = false #pode atacar
 var can_hit: bool = false #pode ter hit
 var can_attack: bool = false #pode atacar
 
-@export var health: int
+@export var health: int = 20
 
 
 var player_ref: Player = null
@@ -42,7 +42,6 @@ func move_behavior() -> void:
 			
 		else:
 			velocity.x = 0
-			
 		return
 	velocity.x = 0
 	
@@ -68,5 +67,6 @@ func update_health(demage: int) -> void:
 	health -= demage
 	if health <= 0:
 		enemy.can_die = true
+		#enemy.can_hit = true
 		return
 	enemy.can_hit = true
