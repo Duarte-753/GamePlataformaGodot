@@ -52,4 +52,4 @@ environment = SubResource("Environment_vaj5p")
 
 [node name="Whale" parent="Enemy" instance=ExtResource("8_yunfe")]
 position = Vector2(295, 114)
-health = 20
+health = 3

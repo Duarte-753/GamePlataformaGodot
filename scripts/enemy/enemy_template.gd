@@ -10,11 +10,9 @@ var can_die: bool = false #pode atacar
 var can_hit: bool = false #pode ter hit
 var can_attack: bool = false #pode atacar
 
-@export var health: int = 20
-
-
 var player_ref: Player = null
 
+@export var health: int = 3 #verificar depois cada inimigo vai ter seu heath
 @export var speed: int
 @export var gravity_speed: int
 @export var proximity_threshold: int
