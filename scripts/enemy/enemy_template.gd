@@ -12,7 +12,7 @@ var can_attack: bool = false #pode atacar
 
 var player_ref: Player = null
 
-@export var health: int = 3 #verificar depois cada inimigo vai ter seu heath
+@export var health: int = 6 #verificar depois cada inimigo vai ter seu heath
 @export var speed: int
 @export var gravity_speed: int
 @export var proximity_threshold: int
@@ -65,6 +65,21 @@ func update_health(demage: int) -> void:
 	health -= demage
 	if health <= 0:
 		enemy.can_die = true
-		#enemy.can_hit = true
 		return
 	enemy.can_hit = true
+	
+
+
+func _on_enemy_attack_area_area_entered(area):
+	if area.get_parent() is Player:
+		#var colisao_enemy_attack: String = "EnemyAttackArea"
+		area.get_parent().stats.on_collision_area_entered(area)
+	 
+	
+
+
+func _on_enemy_attack_area_body_entered(body):
+	if body is Player:
+		var colisao_enemy_attack: String = "EnemyAttackArea"
+		var dano_enemy: Node = get_parent().get_node("../EnemyAttackArea")
+		body.stats.on_collision_area_entered(colisao_enemy_attack, dano_enemy.demage)

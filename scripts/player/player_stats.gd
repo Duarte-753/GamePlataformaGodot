@@ -95,9 +95,9 @@ func update_mana(type: String, value: int)->void:
 			current_mana -= value
 
 
-func on_collision_area_entered(area):
-	if area.name == "EnemyAttackArea":
-		update_health("Decrease", area.damage)
+func on_collision_area_entered(area, demage: int):
+	if area == "EnemyAttackArea":
+		update_health("Decrease", demage)
 		collision_area.set_deferred("monitoring", false)
 		invencibility_timer.start(area.invencibility_timer)
 		

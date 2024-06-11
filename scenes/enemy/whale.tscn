@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bjlqe8uq5cioo"]
+[gd_scene load_steps=20 format=3 uid="uid://bjlqe8uq5cioo"]
 
 [ext_resource type="PackedScene" uid="uid://byc4q8d2n88pb" path="res://scenes/enemy/enemy_template.tscn" id="1_wd3bp"]
 [ext_resource type="Texture2D" uid="uid://d1b6lx47twn6m" path="res://assets/assets/enemy/whale/idle.png" id="2_ifs1o"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d3r6mjwfo7sb0" path="res://assets/assets/enemy/whale/run.png" id="4_htsee"]
 [ext_resource type="Texture2D" uid="uid://yfgyyurhjgo4" path="res://assets/assets/enemy/whale/hit.png" id="5_ytnc0"]
 [ext_resource type="Texture2D" uid="uid://b7if507k8nxlq" path="res://assets/assets/enemy/whale/dead.png" id="6_qwnmn"]
+[ext_resource type="Texture2D" uid="uid://c7jq7nfpyf1nn" path="res://assets/assets/enemy/whale/attack.png" id="7_0dj6n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yu2lr"]
 size = Vector2(62, 40)
@@ -13,8 +14,11 @@ size = Vector2(62, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okvf5"]
 size = Vector2(450, 38)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bumit"]
+size = Vector2(65, 39)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ipiu"]
-size = Vector2(60, 36)
+size = Vector2(62, 38)
 
 [sub_resource type="Animation" id="Animation_8x6f0"]
 length = 0.001
@@ -77,6 +81,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EnemyAttackArea/Collision:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_m475a"]
@@ -358,9 +374,62 @@ tracks/3/keys = {
 "values": [2.2]
 }
 
+[sub_resource type="Animation" id="Animation_ydx3n"]
+resource_name = "attack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_0dj6n")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyAttackArea/Collision:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qu4sx"]
 _data = {
 "RESET": SubResource("Animation_8x6f0"),
+"attack": SubResource("Animation_ydx3n"),
 "dead": SubResource("Animation_m475a"),
 "hit": SubResource("Animation_kh174"),
 "idle": SubResource("Animation_4famg"),
@@ -370,7 +439,7 @@ _data = {
 
 [node name="Whale" instance=ExtResource("1_wd3bp")]
 scale = Vector2(0.5, 0.5)
-health = 5
+health = 6
 speed = 60
 gravity_speed = 350
 proximity_threshold = 15
@@ -383,21 +452,34 @@ hframes = 44
 script = ExtResource("3_xknsx")
 
 [node name="Collision" parent="." index="1"]
+visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_yu2lr")
 
-[node name="Collision" parent="DetectionArea" index="0"]
+[node name="DetectionArea" parent="." index="2"]
 visible = false
+
+[node name="Collision" parent="DetectionArea" index="0"]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_okvf5")
 
 [node name="CollisionArea" parent="." index="3"]
+visible = false
 collision_mask = 0
-health = 20
+health = 6
+
+[node name="Collision" parent="CollisionArea" index="0"]
+position = Vector2(0.5, 3.5)
+shape = SubResource("RectangleShape2D_bumit")
+
+[node name="EnemyAttackArea" parent="." index="4"]
+visible = false
+damage = 3
 
 [node name="Collision" parent="EnemyAttackArea" index="0"]
-position = Vector2(0, 2)
+position = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_7ipiu")
+disabled = true
 
 [node name="Animation" parent="." index="5"]
 libraries = {
@@ -408,3 +490,6 @@ speed_scale = 2.2
 
 [node name="FloorRay" parent="." index="6"]
 visible = false
+
+[connection signal="area_entered" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_area_entered"]
+[connection signal="body_entered" from="EnemyAttackArea" to="." method="_on_enemy_attack_area_body_entered"]
